@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}
+    {% if object %}
+        Editar curso "{{ object.title }}"
+    {% else %}
+        Criar novo curso
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if object %}
+            Editar curso "{{ object.title }}"
+        {% else %}
+            Criar um novo curso
+        {% endif %}
+    </h1>
+
+    <div class="module">
+        <h2>Informação do curso</h2>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Salvar curso"></p>
+        </form>
+    </div>
+{% endblock %}

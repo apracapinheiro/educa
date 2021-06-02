@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}
+        Apagar curso "{{ object.title }}"
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Apagar curso "{{ object.title }}"?
+    </h1>
+
+    <div class="module">
+        <form method="post">
+            {% csrf_token %}
+            <p>Você tem certeza em excluir o curso "{{ object }}"
+            <input type="submit" value="Confirmar"></p>
+        </form>
+    </div>
+{% endblock %}
