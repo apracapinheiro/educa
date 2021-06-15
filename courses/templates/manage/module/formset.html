@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Editar {{ course.title }}
+    Editar "{{ course.title }}"
 {% endblock %}
 
 {% block content %}
     <h1>Editar "{{ course.title }}"</h1>
     <div class="module">
         <h2>Módulos do curso</h2>
-        <form action="">
+        <form method="post">
             {{ formset }}
             {{ formset.management_form }}
             {% csrf_token %}

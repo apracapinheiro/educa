@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load course %}
+
+{% block title %}
+    Módulo {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block content %}
+    {% with course=module.course %}
+        <h1>Curso "{{ course.title }}"</h1>
+        <div class="contents">
+            <h3>Módulos</h3>
+            <ul id="modules">
+                {% for m in course.modules.all %}
+                    <li data-id="{{ m.id }}" {% if m == module %} class="selected" {% endif %}>
+                        <a href="{% url "module_content_list" m.id %}">
+                            <span>
+                                Módulo <span class="order">{{ m.order|add:1 }}</span>
+                            </span>
+                            <br>
+                            {{ m.title }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Sem módulos cadastrados.</li>
+                {% endfor %}
+            </ul>
+            <p><a href="{% url "course_module_update" course.id %}">Editar módulos</a></p>
+        </div>
+
+        <div class="module">
+            <h2>Módulo {{ module.order|add:1 }}: {{ module.title }}</h2>
+            <h3>Conteúdos do módulo:</h3>
+
+            <div id="module-contents">
+                {% for content in module.contents.all  %}
+                    <div data-id="{{ content.id }}">
+                        {% with item=content.item %}
+                            <p>{{ item }} ({{ item|model_name }})</p>
+                            <a href="{% url "module_content_update" module.id item|model_name item.id %}">Editar</a>
+                            <form action="{% url "module_content_delete" content.id %}" method="post">
+                                <input type="submit" value="Delete">
+                                {% csrf_token %}
+                            </form>
+                        {% endwith %}
+                    </div>
+                    {% empty %}
+                        <p>Este módulo não possui conteúdo.</p>
+                {% endfor %}
+            </div>
+            <h3>Adicionar novo conteúdo:</h3>
+            <ul class="content-types">
+                <li><a href="{% url "module_content_create" module.id "text" %}">Texto</a></li>
+                <li><a href="{% url "module_content_create" module.id "image" %}">Imagem</a></li>
+                <li><a href="{% url "module_content_create" module.id "video" %}">Vídeo</a></li>
+                <li><a href="{% url "module_content_create" module.id "file" %}">Arquivo</a></li>
+            </ul>
+        </div>
+    {% endwith %}
+{% endblock %}
