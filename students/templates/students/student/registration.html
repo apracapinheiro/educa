@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cadastrar
+{% endblock %}
+
+{% block content %}
+    <h1>
+        Cadastrar
+    </h1>
+
+    <div class="module">
+        <p>Entre com seus dados para criar uma conta: </p>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Criar minha conta"></p>
+        </form>
+    </div>
+{% endblock %}
