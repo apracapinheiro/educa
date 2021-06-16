@@ -48,7 +48,7 @@ class StudentCourseListView(LoginRequiredMixin,ListView):
 
 class StudentCourseDetailView(DetailView):
     model = Course
-    template_name = 'students/course/detail.html
+    template_name = 'students/course/detail.html'
 
     def get_queryset(self):
         qs = super().get_queryset()
