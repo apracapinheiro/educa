@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 from django.db.models import Count
 
-from students.forms import CourseEnrollForm
+from students.views import CourseEnrollForm
 
 
 class OwnerMixin(object):
